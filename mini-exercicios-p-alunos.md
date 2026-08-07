@@ -336,25 +336,13 @@ module.exports = pool.promise();
 // Não contém lógica — só a ligação: URL → Controller.
 // ============================================================
 
-
-
-
-
-// 9º Digitar o código (Feito pelo Professor - AQUI)
-
-
-
-
+const exprees = require('express');
+const router = express.Router();
+const ItemController = Require('../Controller/ItenController');
 
 // GET /api/itens        → lista todos
 // GET /api/itens?busca= → filtra por nome
-
-
-
-
-
-// 10º Digitar o código (Feito pelo Professor - AQUI)
-
+Router.get('/itens',ItemControler.listar);
 
 
 

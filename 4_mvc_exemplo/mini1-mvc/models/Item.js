@@ -72,7 +72,9 @@ class Item {
  static async buscarPorNome(termo) {
     const [rows] = await pool.query(
       'SELECT * FROM itens WHERE nome LIKE ?',
-      [`%${termo}%`] );
+      [`%${termo}%`]
+    );
+    return rows;
         }
  
     }    

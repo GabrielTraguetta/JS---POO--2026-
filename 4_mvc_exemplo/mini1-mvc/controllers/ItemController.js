@@ -13,7 +13,7 @@
 // O Controller NÃO sabe como o HTML é montado — isso é da View.
 // ============================================================
 
-const item= require('../models/Item');
+const Item= require('../models/Item');
 
 class ItemController {
     // ── listar(req, res) ──────────────────────────────────────
@@ -23,19 +23,26 @@ class ItemController {
         try {
             //Pega o valor de "busca"da URL (?busca= . . .); se não vier nenhum, fica vazio
             const termo = req.query.busca || '';
-
+            
+            
+                  // await pausa aqui até o banco responder
             const itens = termo
-                ? await item.buscar(termo)
-                : await item.buscarTodos();
+                ? await Item.buscarPorNome(termo)
+                : await Item.buscarTodos();
+                
+                return res.json(itens);
+
         } catch (erro) {
-            console.error('Erro ao buscar itens'erro);
-            res.status(500).json({ erro: 'Erro ao buscar itens' });
+            // Qualquer erro do banco cai aqui
+            // Em produção: logar o erro, não expor detalhes ao cliente
+            console.error('Erro ao buscar itens',erro);
+            res.status(500).json({ erro: 'Erro ao buscar itens'});
            
         }
     }
 
 }
-
+module.exports = ItemController;
 
 
 
@@ -49,16 +56,12 @@ class ItemController {
 
 
 
-      // await pausa aqui até o banco responder
-
 
 
     // 7º Digitar o código (Feito pelo Professor - AQUI)
 
 
 
-      // Qualquer erro do banco cai aqui
-      // Em produção: logar o erro, não expor detalhes ao cliente
 
 
 
